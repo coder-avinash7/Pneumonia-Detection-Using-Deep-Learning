@@ -8,7 +8,7 @@ This project leverages deep learning to detect pneumonia from chest X-ray images
 ## Video Demo
 
 Here's a video demo of the project:
-
+ https://github.com/coder-avinash7/Pneumonia-Detection-Using-Deep-Learning/tree/main/Demo%20video
 
 
 ---
