@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pneumonia Detector</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<!-- Background animation circles -->
+<div class="bg-circle circle1"></div>
+<div class="bg-circle circle2"></div>
+<div class="bg-circle circle3"></div>
+
+<!-- App Container -->
+<div class="main-card">
+
+    <h1 class="app-title">Pneumonia Detector</h1>
+    <p class="app-sub">AI-Powered Chest X-Ray Analysis</p>
+
+    <!-- Upload Form -->
+    <form id="uploadForm" action="/" method="POST" enctype="multipart/form-data">
+
+        <label class="upload-box" id="dragArea" for="fileUpload">
+            <div class="upload-content">
+                <div class="upload-icon">⬆️</div>
+                <h3>Drop Image Here</h3>
+                <p>or click to browse</p>
+            </div>
+        </label>
+
+        <input type="file" name="file" id="fileUpload" hidden accept=".jpg,.jpeg,.png" required>
+
+        {% if filename %}
+        <div class="preview-area">
+            <img src="{{ url_for('static', filename='uploads/' + filename) }}" class="preview-img fade-in">
+        </div>
+        {% endif %}
+
+        <button class="analyze-btn">Analyze X-Ray</button>
+
+    </form>
+
+    {% if prediction %}
+    <div class="result-box fade-in">
+        <h2>Diagnosis</h2>
+        <p class="result-text">{{ prediction }}</p>
+    </div>
+    {% endif %}
+
+</div>
+
+<script>
+const dragArea = document.getElementById("dragArea");
+const fileInput = document.getElementById("fileUpload");
+
+dragArea.addEventListener("dragover", e => {
+    e.preventDefault();
+    dragArea.classList.add("hover");
+});
+
+dragArea.addEventListener("dragleave", () => dragArea.classList.remove("hover"));
+
+dragArea.addEventListener("drop", e => {
+    e.preventDefault();
+    dragArea.classList.remove("hover");
+    fileInput.files = e.dataTransfer.files;
+});
+</script>
+
+</body>
+</html>
